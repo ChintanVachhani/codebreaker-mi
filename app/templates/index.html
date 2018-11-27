@@ -18,27 +18,29 @@
 </head>
 <body>
 
-<div class="jumbotron">
-    <div class="container">
-        {% if title and page %}
-            <h1 class="display-4">{{ title }} - {{ page }}</h1>
-        {% else %}
-            <h1 class="display-4">Code Breaker - Computer Vision API</h1>
-        {% endif %}
-        <p class="lead">A <strong>REST API</strong> for Project Code Breaker's Computer Vision Module.</p>
+    <div class="container" style="background-color: gray;">
+        <h1>Code Breaker - Machine Learning API</h1>
+        <p class="lead">A <strong>REST API</strong> for Project Code Breaker's Machine Learning Module.</p>
     </div>
-</div>
 <div class="container pb-5">
     <h4>API Calls</h4><br>
 
     <div class="card">
-        <h5 class="card-header alert-success">add(x, y)</h5>
+        <h5 class="card-header alert-success">predict(quiz)</h5>
         <div class="card-body">
-            <p class="card-title"><span class="badge badge-success">GET</span>&nbsp; /calculate?x=9&operator=+&y=6</p>
+            <p class="card-title"><span class="badge badge-success">POST</span>&nbsp; /solve</p>
+            <p class="card-text"><span>body</span>
+                {
+	                "quiz": "397050000000001300006030905000006052060507030950300000705040600008200000000070423"
+                }
+            </p>
             <p class="card-text">
                 {
-                "message": "Addition OK.",
-                "result": 15
+                    "data":
+                        {
+                        "solution": "397654281542981376186732945873496152264517839951328764725143698438269517619875423"
+                        },
+                    "message": "Puzzle solved and solution returned."
                 }
             </p>
         </div>
@@ -48,7 +50,7 @@
     <div class="card">
         <h5 class="card-header alert-danger">not found</h5>
         <div class="card-body">
-            <p class="card-title"><span class="badge badge-success">GET</span>&nbsp; /cal?x=9&operator=+&y=6</p>
+            <p class="card-title"><span class="badge badge-success">POST</span>&nbsp; /solve</p>
             <p class="card-text">
                 {
                 "message": "Error.",
