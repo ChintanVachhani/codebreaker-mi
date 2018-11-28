@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 from .train import Graph
 from .data_load import load_data
-from .hyperparams import Hyperparams as hp
+from .params import params as param
 import os
 
 def write_to_file(x, y, preds, fout):
@@ -34,11 +34,11 @@ def test():
         sv = tf.train.Supervisor()
         with sv.managed_session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
             # Restore parameters
-            sv.saver.restore(sess, tf.train.latest_checkpoint(hp.logdir))
+            sv.saver.restore(sess, tf.train.latest_checkpoint(param.logdir))
             print("Restored!")
 
             # Get model name
-            mname = open(hp.logdir + '\\checkpoint', 'r').read().split('"')[1]  # model name
+            mname = open(param.logdir + '\\checkpoint', 'r').read().split('"')[1]  # model name
 
             if not os.path.exists('results'): os.mkdir('results')
             fout = 'results\\{}.txt'.format(mname)

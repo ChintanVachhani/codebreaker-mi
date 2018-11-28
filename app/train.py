@@ -1,5 +1,5 @@
 import tensorflow as tf
-from .hyperparams import Hyperparams as hp
+from .params import params as param
 from .data_load import get_batch_data
 from .modules import conv
 from tqdm import tqdm
@@ -18,11 +18,11 @@ class Graph(object):
             self.istarget = tf.to_float(tf.equal(self.x, tf.zeros_like(self.x)))  # 0: blanks
 
             # network
-            for i in range(hp.num_blocks):
+            for i in range(param.num_blocks):
                 with tf.variable_scope("conv2d_{}".format(i)):
                     self.enc = conv(self.enc,
-                                    filters=hp.num_filters,
-                                    size=hp.filter_size,
+                                    filters=param.num_filters,
+                                    size=param.filter_size,
                                     is_training=is_training,
                                     norm_type="bn",
                                     activation_fn=tf.nn.relu)
@@ -44,7 +44,7 @@ class Graph(object):
 
                 # Training Scheme
                 self.global_step = tf.Variable(0, name='global_step', trainable=False)
-                self.optimizer = tf.train.AdamOptimizer(learning_rate=hp.lr)
+                self.optimizer = tf.train.AdamOptimizer(learning_rate=param.lr)
                 self.train_op = self.optimizer.minimize(self.loss, global_step=self.global_step)
                 tf.summary.scalar("loss", self.loss)
 
@@ -55,10 +55,10 @@ def main():
     g = Graph();
     print("Training Graph loaded")
     with g.graph.as_default():  # Training
-        sv = tf.train.Supervisor(logdir=hp.logdir,
+        sv = tf.train.Supervisor(logdir=param.logdir,
                                  save_model_secs=60)
         with sv.managed_session() as sess:
-            for epoch in range(1, hp.num_epochs + 1):
+            for epoch in range(1, param.num_epochs + 1):
                 if sv.should_stop(): break
                 for step in tqdm(range(g.num_batch), total=g.num_batch, ncols=70, leave=False, unit='b'):
                     sess.run(g.train_op)
@@ -67,4 +67,4 @@ def main():
 
                 # Write checkpoint files at every epoch
                 gs = sess.run(g.global_step)
-                sv.saver.save(sess, hp.logdir + 'model_epoch_%02d_gs_%d' % (epoch, gs))
+                sv.saver.save(sess, param.logdir + 'model_epoch_%02d_gs_%d' % (epoch, gs))

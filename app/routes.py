@@ -20,9 +20,9 @@ def testRoute():
 def solveSudoku():
     data = request.get_json() or {}
     if len(data) > 0:
-        quiz = data['quiz']
+        puzzle = data['puzzle']
         response = {
-            'solution': predict(quiz)
+            'solution': predict(puzzle)
         }
         return util.success_response(200, 'Puzzle solved and solution returned.', response)
 

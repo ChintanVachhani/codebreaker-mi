@@ -1,10 +1,10 @@
 import tensorflow as tf
 import numpy as np
-from .hyperparams import Hyperparams as hp
+from .params import params as param
 
 def load_data(type="train"):
-    fpath = hp.train_fpath if type == "train" else hp.test_fpath
-    lines = open(fpath, 'r').read().splitlines()[1:]
+    filePath = param.trainFilePath if type == "train" else param.testFilePath
+    lines = open(filePath, 'r').read().splitlines()[1:]
     nsamples = len(lines)
 
     X = np.zeros((nsamples, 9 * 9), np.float32)
@@ -30,11 +30,11 @@ def get_batch_data():
     # create batch queues
     x, y = tf.train.shuffle_batch(input_queues,
                                   num_threads=8,
-                                  batch_size=hp.batch_size,
-                                  capacity=hp.batch_size * 64,
-                                  min_after_dequeue=hp.batch_size * 32,
+                                  batch_size=param.batch_size,
+                                  capacity=param.batch_size * 64,
+                                  min_after_dequeue=param.batch_size * 32,
                                   allow_smaller_final_batch=False)
     # calc total batch count
-    num_batch = len(X) // hp.batch_size
+    num_batch = len(X) // param.batch_size
 
     return x, y, num_batch

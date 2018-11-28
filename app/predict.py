@@ -1,18 +1,15 @@
 import tensorflow as tf
 import numpy as np
 from .train import Graph
-from .hyperparams import Hyperparams as hp
+from .params import params as param
 
-def predict(quiz):
-    x = np.zeros((1, 9 * 9), np.float32)
-    for j, (q) in enumerate(quiz):
-        x[0, j] = q
-    x = np.reshape(x, (-1, 9, 9))
+def predict(puzzle):
+    x = np.reshape(np.asarray(puzzle, np.float32), (1, 9, 9))
     g = Graph(is_training=False)
     with g.graph.as_default():
         sv = tf.train.Supervisor()
         with sv.managed_session(config=tf.ConfigProto(allow_soft_placement=True)) as session:
-            sv.saver.restore(session, tf.train.latest_checkpoint(hp.logdir))
+            sv.saver.restore(session, tf.train.latest_checkpoint(param.modelDir))
             import copy
             sol = copy.copy(x)
             while 1:
@@ -37,5 +34,4 @@ def predict(quiz):
 
                 if np.count_nonzero(sol) == sol.size: break
             y = sol.astype(np.int32)
-            for xx in (y.reshape(-1, 9*9)):
-                return "{}".format("".join(str(num) for num in xx))
+            return y[0].tolist()
