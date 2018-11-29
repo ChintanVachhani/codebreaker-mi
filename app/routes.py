@@ -5,7 +5,7 @@ from codebreaker_mi import *
 
 @app.route('/')
 def index():
-    return render_template('index.html', title='Code Breaker', page='Computer Vision API')
+    return render_template('index.html', title='Code Breaker', page='Machine Intelligence API')
 
 
 @app.route('/test', methods=['GET'])

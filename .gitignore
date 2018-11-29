@@ -181,3 +181,6 @@ venv.bak/
 # Custom
 resources/
 generated/
+model/
+test.csv
+results/

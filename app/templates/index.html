@@ -11,17 +11,23 @@
 
 
     {% if title %}
-        <title>{{ title }}</title>
+    <title>{{ title }}</title>
     {% else %}
-        <title>Code Breaker</title>
+    <title>Code Breaker</title>
     {% endif %}
 </head>
 <body>
 
-    <div class="container" style="background-color: gray;">
-        <h1>Code Breaker - Machine Learning API</h1>
-        <p class="lead">A <strong>REST API</strong> for Project Code Breaker's Machine Learning Module.</p>
+<div class="jumbotron">
+    <div class="container">
+        {% if title and page %}
+        <h1 class="display-4">{{ title }} - {{ page }}</h1>
+        {% else %}
+        <h1 class="display-4">Code Breaker - Machine Intelligence API</h1>
+        {% endif %}
+        <p class="lead">A <strong>REST API</strong> for Project Code Breaker's Machine Intelligence Module.</p>
     </div>
+</div>
 <div class="container pb-5">
     <h4>API Calls</h4><br>
 
@@ -29,18 +35,22 @@
         <h5 class="card-header alert-success">predict(quiz)</h5>
         <div class="card-body">
             <p class="card-title"><span class="badge badge-success">POST</span>&nbsp; /solve</p>
-            <p class="card-text"><span>body</span>
+            <p class="card-text"><span class="badge badge-secondary">REQUEST</span>
                 {
-	                "quiz": "397050000000001300006030905000006052060507030950300000705040600008200000000070423"
+                "puzzle": "[[0, 6, 0, 1, 0, 4, 0, 5, 0], [0, 0, 8, 3, 0, 5, 6, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 1], [8, 0,
+                0, 4, 0, 7, 0, 0, 6], [0, 0, 6, 0, 0, 0, 3, 0, 0], [7, 0, 0, 9, 0, 1, 0, 0, 4], [5, 0, 0, 0, 0, 0, 0, 0,
+                2], [0, 0, 7, 2, 0, 6, 9, 0, 0], [0, 4, 0, 5, 0, 8, 0, 7, 0]]"
                 }
             </p>
-            <p class="card-text">
+            <p class="card-text"><span class="badge badge-dark">RESPONSE</span>
                 {
-                    "data":
-                        {
-                        "solution": "397654281542981376186732945873496152264517839951328764725143698438269517619875423"
-                        },
-                    "message": "Puzzle solved and solution returned."
+                "data":
+                {
+                "solution": "[[3, 6, 9, 1, 2, 4, 7, 5, 8], [1, 4, 8, 3, 7, 5, 6, 2, 9], [2, 7, 5, 6, 8, 9, 4, 3, 1], [8,
+                5, 9, 4, 3, 7, 2, 1, 6], [4, 1, 6, 8, 5, 2, 3, 9, 7], [7, 2, 3, 9, 6, 1, 5, 8, 4], [5, 9, 1, 7, 4, 3, 8,
+                6, 2], [3, 8, 7, 2, 1, 6, 9, 4, 5], [6, 4, 2, 5, 9, 8, 1, 7, 3]]"
+                },
+                "message": "Puzzle solved and solution returned."
                 }
             </p>
         </div>
@@ -51,7 +61,7 @@
         <h5 class="card-header alert-danger">not found</h5>
         <div class="card-body">
             <p class="card-title"><span class="badge badge-success">POST</span>&nbsp; /solve</p>
-            <p class="card-text">
+            <p class="card-text"><span class="badge badge-dark">RESPONSE</span>
                 {
                 "message": "Error.",
                 "error": {
