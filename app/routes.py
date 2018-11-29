@@ -1,6 +1,5 @@
 from app import application as app, util
 from flask import render_template, request
-from .predict import predict
 from codebreaker_mi import *
 
 
