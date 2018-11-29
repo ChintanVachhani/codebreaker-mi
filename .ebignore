@@ -1,0 +1,10 @@
+venv
+generated
+resources
+.env
+.gitignore
+buildspec.yml
+.git
+.idea
+__pycache__
+test.csv

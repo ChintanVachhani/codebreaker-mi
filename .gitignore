@@ -184,3 +184,9 @@ generated/
 model/
 test.csv
 results/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.ebignore
