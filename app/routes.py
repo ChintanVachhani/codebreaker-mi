@@ -1,6 +1,7 @@
 from app import application as app, util
 from flask import render_template, request
 from .predict import predict
+from codebreaker_mi import *
 
 
 @app.route('/')
@@ -22,7 +23,7 @@ def solveSudoku():
     if len(data) > 0:
         puzzle = data['puzzle']
         response = {
-            'solution': predict(puzzle)
+            'solution': PuzzleSolver.predict(puzzle)
         }
         return util.success_response(200, 'Puzzle solved and solution returned.', response)
 
