@@ -2,6 +2,9 @@ import tensorflow as tf
 import numpy as np
 
 """
+Inspired from [https://github.com/Kyubyong/sudoku]
+"""
+"""
     Hyperparams for the tensorflow training and prediction 
 """
 class Param:
